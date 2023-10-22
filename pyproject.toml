@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "vectorizer"
+version = "0.1.0"
+description = "Reverse engineered API for vectorizer.ai"
+authors = ["acheong08 <acheong@student.dalat.org>"]
+license = "MIT"  # Adjust if you have a different license
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+Pillow = "*"
+requests = "*"
+websockets = "*"
+
+# If you have development-only dependencies, add them here
+[tool.poetry.dev-dependencies]
+# example-dev-dependency = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+# Additional settings or scripts for the package can be defined here
+[tool.poetry.scripts]
+# example-script = "your_package_name:your_function_name"
+
