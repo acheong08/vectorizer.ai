@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vectorizer"
-version = "0.1.1"
+version = "0.2.0"
 description = "Reverse engineered API for vectorizer.ai"
 authors = ["acheong08 <acheong@student.dalat.org>"]
 license = "MIT"  # Adjust if you have a different license

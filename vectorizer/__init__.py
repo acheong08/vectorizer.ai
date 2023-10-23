@@ -2,6 +2,7 @@ import json
 from websockets.sync.client import connect, ClientConnection
 from PIL import Image
 import requests
+import io
 
 DEFAULT_DOWNLOAD_OPTIONS = """file_format=svg&svg.version=svg_1_1&dxf.compatibility_level=lines_and_arcs&draw_style=fill_shapes&shape_stacking=cutouts&group_by=none&curves.allowed.quadratic_bezier=true&curves.allowed.quadratic_bezier=false&curves.allowed.cubic_bezier=true&curves.allowed.cubic_bezier=false&curves.allowed.circular_arc=true&curves.allowed.circular_arc=false&curves.allowed.elliptical_arc=true&curves.allowed.elliptical_arc=false&curves.line_fit_tolerance=0.1&gap_filler.enabled=true&gap_filler.enabled=false&gap_filler.non_scaling_stroke=true&gap_filler.non_scaling_stroke=false&gap_filler.stroke_width=2.0&strokes.non_scaling_stroke=true&strokes.non_scaling_stroke=false&strokes.override_color=%23000000&strokes.stroke_width=1.0&pdf.version=PDF_1_4&eps.version=PS_3_0_EPSF_3_0"""
 
@@ -13,11 +14,36 @@ class Img:
     filename: str
     data: bytes
 
-    def __init__(self, filename: str):
+    def __init__(
+        self, filename: str = None,
+        data: bytes = None,
+        width: int = None,
+        height: int = None
+    ):
+        self.filename = filename
+        self.data = data
+        self.width = width
+        self.height = height
+        if data is not None:
+            self.size = len(data)
+
+    @staticmethod
+    def from_file(filename: str):
+        self = Img()
         self.filename = filename
         self.data = open(filename, 'rb').read()
         self.size = len(self.data)
         self.width, self.height = Image.open(filename).size
+        return self
+
+    @staticmethod
+    def from_data(filename: str, data: bytes):
+        self = Img()
+        self.filename = filename
+        self.data = data
+        self.size = len(self.data)
+        self.width, self.height = Image.open(io.BytesIO(self.data)).size
+        return self
 
 
 class Vectorizer:
